@@ -2,9 +2,6 @@
 import os
 import urllib
 
-from google.appengine.api import users
-from google.appengine.ext import ndb
-
 import jinja2
 import webapp2
 
@@ -15,17 +12,20 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 # [END imports]
 
 
-class MainPage(webapp2.RequestHandler):
+class LoginPage(webapp2.RequestHandler):
     def get(self):
-        greetings = 'somestring'
-        template_values = {
-            'greetings': greetings,
-        }
         template = JINJA_ENVIRONMENT.get_template('loginMQ.html')
-        self.response.out.write(template.render(template_values))
+        self.response.out.write(template.render())
+
+class Login(webapp2.RequestHandler):
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.out.write(template.render())
+
 
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
+    ('/index.html', Login)
 ], debug=True)
 # [END app]
