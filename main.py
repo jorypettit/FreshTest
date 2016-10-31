@@ -15,24 +15,33 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 # [END imports]
 
 
-from flask import Flask
-app = Flask(__name__)
-app.config['DEBUG'] = True
-
-# Note: We don't need to call run() since our application is embedded within
-# the App Engine WSGI application server.
-
-
-@app.route('/')
-def hello():
-    """Return a friendly HTTP greeting."""
-    return 'Hello World!'
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """Return a custom 404 error."""
-    return 'Sorry, nothing at this URL.', 404
+class MainPage(webapp2.RequestHandler):
+    
+    def get(self):
+        guestbook_name = self.request.get('guestbook_name',
+                                          DEFAULT_GUESTBOOK_NAME)
+                                          greetings_query = Greeting.query(
+                                                                           ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
+                                          greetings = greetings_query.fetch(10)
+                                          
+                                          user = users.get_current_user()
+                                          if user:
+                                              url = users.create_logout_url(self.request.uri)
+                                                  url_linktext = 'Logout'
+                                              else:
+                                                  url = users.create_login_url(self.request.uri)
+                                                      url_linktext = 'Login'
+                                                          
+                                                          template_values = {
+                                                              'user': user,
+                                                                  'greetings': greetings,
+                                                                      'guestbook_name': urllib.quote_plus(guestbook_name),
+                                                                          'url': url,
+                                                                              'url_linktext': url_linktext,
+                                                                                  }
+                                                                                      
+                                                                                      template = JINJA_ENVIRONMENT.get_template('index.html')
+                                                                                          self.response.write(template.render(template_values))
 
 # [START app]
 app = webapp2.WSGIApplication([
