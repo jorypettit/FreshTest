@@ -16,13 +16,12 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 class MainPage(webapp2.RequestHandler):
+    def get(self):
     
     template = JINJA_ENVIRONMENT.get_template('index.html')
-    self.response.write(template.render(template_values))
 
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/sign', Guestbook),
 ], debug=True)
 # [END app]
