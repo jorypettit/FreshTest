@@ -21,7 +21,7 @@ class MainPage(webapp2.RequestHandler):
         template_values = {
             'greetings': greetings,
         }
-        template = jinja_environment.get_template('index.html')
+        template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.out.write(template.render(template_values))
 
 # [START app]
