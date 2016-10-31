@@ -14,7 +14,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class LoginPage(webapp2.RequestHandler):
     def get(self):
-        template = JINJA_ENVIRONMENT.get_template('index.html')
+        template = JINJA_ENVIRONMENT.get_template('loginMQ.html')
         self.response.out.write(template.render())
 
 class Login(webapp2.RequestHandler):
