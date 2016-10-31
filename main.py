@@ -25,7 +25,7 @@ class Login(webapp2.RequestHandler):
 
 # [START app]
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
+    ('/', LoginPage),
     ('/index.html', Login)
 ], debug=True)
 # [END app]
