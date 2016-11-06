@@ -34,12 +34,15 @@ class LoginPage(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('loginMQ.html')
         self.response.out.write(template.render(template_values))
 
-
-
+class RegisterPage(webapp2.RegisterHandler):
+    def get(self):
+    
+        template = JINJA_ENVIRONMENT.get_template('register.html')
+        self.response.out.write(template.render())
 
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', LoginPage)
-    
+    ('/', RegisterPage)
 ], debug=True)
 # [END app]
