@@ -22,7 +22,7 @@ class LoginPage(webapp2.RequestHandler):
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
         else:
-            url = users.create_login_url(self).request.uri)
+            url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
         
         template_values = {
